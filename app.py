@@ -1,6 +1,4 @@
-from flask import Flask
-from flask import request
-from flask import jsonify
+from flask import Flask, request, render_template
 
 app = Flask(__name__)
 
@@ -10,9 +8,9 @@ print(__name__)
 def hello():
     return __name__
 
-@app.route('/name/<name>')
+@app.route('/user/<name>')
 def name(name):
-    return f'Hola {name}!'
+    return render_template('user.html', name = name)
 
 @app.route('/req')
 def req():

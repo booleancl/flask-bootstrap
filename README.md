@@ -70,7 +70,7 @@ pipenv shell
 pipenv install
 set FLASK_APP=app
 set FLASK_ENV=development
-flusk run
+flask run
 ```
 
 O
