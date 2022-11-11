@@ -6,7 +6,7 @@ print(__name__)
 
 @app.route('/')
 def hello():
-    return __name__
+    return render_template('index.html')
 
 @app.route('/user/<name>')
 def name(name):
