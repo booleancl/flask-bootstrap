@@ -63,6 +63,15 @@ Si todo salió bien en la salida deberías ver un resumen de como usar `pipenv`
 ¡Buen trabajo!
 
 
+## Extensiones
+Instalar dependencias
+
+`pipenv install`
+
+## Correr las migraciones
+
+`flask db upgrade`
+
 ## Levantar el servidor de desarrollo.
 
 ```bash
@@ -76,4 +85,5 @@ flask run
 O
 
 `pipenv run flask --app app --debug run`
+
 
