@@ -54,4 +54,4 @@ def register():
 def logout():
     logout_user()
     flash('Sesión cerrada')
-    return redirect('main/index')
+    return redirect('/auth/login')
