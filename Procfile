@@ -1,1 +1,1 @@
-web: waitress-serve heroku:app
+web: waitress-serve --port=$PORT heroku:app
