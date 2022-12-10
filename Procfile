@@ -1,1 +1,1 @@
-web: flask run
+web: waitress-serve heroku:app
