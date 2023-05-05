@@ -82,7 +82,7 @@ set FLASK_APP=app
 set FLASK_ENV=development
 flask run
 ```
-O con la siguiete línea
+O con la siguiente línea
 
 `pipenv run flask --app app --debug run`
 
@@ -96,8 +96,7 @@ Y si tiene el archivo .env con las variables FLASK_DEBUG=1 y FLASK_APP=app, solo
 
 ![MVC](https://cdn.educba.com/academy/wp-content/uploads/2019/04/what-is-mvc-design-pattern.jpg.webp)
 
-
-Es una aqruitectura para separar las responsabilidades en la manipulación de las solicitudes y respuestas. Quien recibe las solicitudes es el Controlador o en flask, las rutas. Los controladores se encargan de revisar que la solicitud cumpla con las caacterísticas necesarias para entregar una respuesta acoorde (que teng todos los datos). Si el controlador lo permite, se podría opcionalmente llamar al modelo para obtener o modificar los datos de la BBDD. Y finalmente enviar una respuesta que contenga la presentación de la aplicación. En nuestro caso la capa de presentación comumnente conocida como Vistas (views) se llaman Templates. 
+Es una arquitectura para separar las responsabilidades en la manipulación de las solicitudes y respuestas. Quien recibe las solicitudes es el Controlador o en flask, las rutas. Los controladores se encargan de revisar que la solicitud cumpla con las características necesarias para entregar una respuesta acorde (que tenga todos los datos). Si el controlador lo permite, se podría opcionalmente llamar al modelo para obtener o modificar los datos de la BBDD. Y finalmente enviar una respuesta que contenga la presentación de la aplicación. En nuestro caso la capa de presentación comúnmente conocida como Vistas (views) se llaman Templates. 
 
 Por lo tanto en Flask el MVC podría ser adaptado como MTR (Modelo, Template, Ruta), pero es lo mismo en términos de separar la responsabilidad.
 

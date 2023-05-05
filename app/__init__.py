@@ -4,29 +4,30 @@ from config import config
 
 from app.extensions import db, migrate, login_manager
 
-environment_config = os.getenv('ENVIRONMENT_CONFIG') or 'development'
+environment_config = os.getenv('ENVIRONMENT_CONFIG') or 'default'
 
-def create_app(config_name = environment_config):
+
+def create_app(config_name=environment_config):
     print(config_name)
     app = Flask(__name__)
     app.config.from_object(config[config_name])
 
     # Initialize Flask extensions here
     db.init_app(app)
-    migrate.init_app(app,db)
+    migrate.init_app(app, db, render_as_batch=True)
     login_manager.init_app(app)
 
     # Register blueprints here:
 
-    ## Main blueprint 
+    # Main blueprint
     from app.main import bp as main_bp
     app.register_blueprint(main_bp)
 
-    ## Messages Blueprint 
+    # Messages Blueprint
     from app.messages import bp as messages_bp
     app.register_blueprint(messages_bp, url_prefix='/messages')
 
-    ## Authentication Blueprint
+    # Authentication Blueprint
     from app.auth import bp as auth_bp
     app.register_blueprint(auth_bp, url_prefix='/auth')
 
