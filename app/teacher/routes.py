@@ -1,6 +1,6 @@
 from flask import render_template, request, url_for, redirect, flash
 from flask_login import login_user, login_required, logout_user
-from app.auth import bp
+from app.teacher import bp
 from app.models.user import User
 from app.extensions import db
 
@@ -11,23 +11,22 @@ def login():
         email = request.form['email']
         password = request.form['password']
         remember = request.form.get('remember_me')
-        role = Role.query.filter_by(name='User').first()
 
         if not password:
             flash('La contraseña es obligatoria')
         elif not email:
             flash('El correo es obligatorio')
         else:
-            user = User.query.filter_by(email=email, role=role).first()
+            user = User.query.filter_by(email=email).first()
             if user and user.verify_password(password):
                 login_user(user, remember)
                 next = request.args.get('next')
                 if next is None or not next.startswith('/'):
-                    next = url_for('main.index')
+                    next = url_for('teacher.index')
                 flash(f'Bienvenido { user.username }')
                 return redirect(next)
             flash('Usuario o password incorrecto.')
-    return render_template('auth/login.html')
+    return render_template('teacher/login.html')
 
 
 @bp.route('/register', methods=('GET', 'POST'))
@@ -37,7 +36,6 @@ def register():
         email = request.form['email']
         password = request.form['password']
         password_confirm = request.form['password_confirm']
-        role = Role.query.filter_by(name='User').first()
 
         if not username:
             flash('El nombre del usuario es obligatorio')
@@ -46,13 +44,12 @@ def register():
         elif not password == password_confirm:
             flash('La contraseña no coincide')
         else:
-            user = User(username=username, email=email,
-                        password=password, role=role)
+            user = User(username=username, email=email, password=password)
             db.session.add(user)
             db.session.commit()
             flash('Usuario creado correctamente')
-            return redirect(url_for('auth.login'))
-    return render_template('auth/register.html')
+            return redirect(url_for('teacher.login'))
+    return render_template('teacher/register.html')
 
 
 @bp.route('logout')

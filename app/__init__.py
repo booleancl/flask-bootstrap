@@ -27,8 +27,16 @@ def create_app(config_name=environment_config):
     from app.messages import bp as messages_bp
     app.register_blueprint(messages_bp, url_prefix='/messages')
 
-    # Authentication Blueprint
+    # Authentication Blueprint for Users
     from app.auth import bp as auth_bp
     app.register_blueprint(auth_bp, url_prefix='/auth')
+
+    # Authentication Blueprint for Admins
+    from app.admin import bp as admin_bp
+    app.register_blueprint(admin_bp, url_prefix='/admin')
+
+    # Authentication Blueprint for Teachers
+    from app.teacher import bp as teacher_bp
+    app.register_blueprint(teacher_bp, url_prefix='/teacher')
 
     return app

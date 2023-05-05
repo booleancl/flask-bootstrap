@@ -1,8 +1,14 @@
 from flask import render_template, request, url_for, redirect, flash
 from flask_login import login_user, login_required, logout_user
-from app.auth import bp
+from app.admin import bp
 from app.models.user import User
+from app.models.role import Role
 from app.extensions import db
+
+
+@bp.route('/')
+def index():
+    return render_template('admin/index.html')
 
 
 @bp.route('/login', methods=['GET', 'POST'])
@@ -11,8 +17,7 @@ def login():
         email = request.form['email']
         password = request.form['password']
         remember = request.form.get('remember_me')
-        role = Role.query.filter_by(name='User').first()
-
+        role = Role.query.filter_by(name='Admin').first()
         if not password:
             flash('La contraseña es obligatoria')
         elif not email:
@@ -23,11 +28,11 @@ def login():
                 login_user(user, remember)
                 next = request.args.get('next')
                 if next is None or not next.startswith('/'):
-                    next = url_for('main.index')
+                    next = url_for('admin.index')
                 flash(f'Bienvenido { user.username }')
                 return redirect(next)
             flash('Usuario o password incorrecto.')
-    return render_template('auth/login.html')
+    return render_template('admin/login.html')
 
 
 @bp.route('/register', methods=('GET', 'POST'))
@@ -37,7 +42,7 @@ def register():
         email = request.form['email']
         password = request.form['password']
         password_confirm = request.form['password_confirm']
-        role = Role.query.filter_by(name='User').first()
+        role = Role.query.filter_by(name='Admin').first()
 
         if not username:
             flash('El nombre del usuario es obligatorio')
@@ -51,8 +56,8 @@ def register():
             db.session.add(user)
             db.session.commit()
             flash('Usuario creado correctamente')
-            return redirect(url_for('auth.login'))
-    return render_template('auth/register.html')
+            return redirect(url_for('admin.login'))
+    return render_template('admin/register.html')
 
 
 @bp.route('logout')
@@ -60,4 +65,4 @@ def register():
 def logout():
     logout_user()
     flash('Sesión cerrada')
-    return redirect('/auth/login')
+    return redirect('/admin/login')
